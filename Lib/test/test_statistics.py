@@ -2737,6 +2737,11 @@ class TestCorrelationAndCovariance(unittest.TestCase):
             self.assertAlmostEqual(statistics.correlation(x, y), result)
             self.assertAlmostEqual(statistics.covariance(x, y), result)
 
+    def test_correlation_tiny_inputs(self):      # <- new test
+        x = [1e-100, 2e-100, 3e-100]
+        y = [1e-62, 2e-62, 3e-62]
+        self.assertAlmostEqual(statistics.correlation(x, y), 1.0, places=12)
+        self.assertAlmostEqual(statistics.correlation(x, y[::-1]), -1.0, places=12)
     def test_different_scales(self):
         x = [1, 2, 3]
         y = [10, 30, 20]
